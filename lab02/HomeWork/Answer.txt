@@ -1,0 +1,20 @@
+1) If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this?
+- Nếu tạo hai constructor có cùng kiểu tham số (String), nhưng truyền giá trị cho title trong một constructor và category trong constructor còn lại thì Java không cho phép vì chúng có cùng kiểu tham số (String), khiến trình biên dịch không thể phân biệt được constructor nào sẽ được gọi.
+- Nếu muốn tạo constructor để khởi tạo DVD bằng title và category, phải làm cho Java có thể phân biệt chúng bằng cách thay đổi số lượng tham số hoặc kiểu dữ liệu.
+
+2) Is JAVA a Pass by Value or a Pass by Reference programming language?
+- Java luôn luôn là Pass by Value (truyền tham trị).
+- Khi truyền một đối tượng, Java cũng truyền giá trị, nhưng giá trị này là địa chỉ tham chiếu của đối tượng.
+
+3) After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+- Java truyền tham số theo Pass by Value, kể cả với object.
+- Đối tượng không được truyền trực tiếp mà thay vào đó, bản sao của tham chiếu đến đối tượng được truyền vào phương thức.
+- dvd1 và dvd2 trong swap() chỉ là bản sao của tham chiếu gốc, không phải bản thân đối tượng.
+- Khi đổi chỗ dvd1 và dvd2, chỉ có các bản sao bị thay đổi, còn tham chiếu gốc trong main() không đổi.
+Vì vậy, tiêu đề của hai đối tượng vẫn giữ nguyên sau khi gọi swap().
+
+4) After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+- dvd là một bản sao của tham chiếu jungleDVD, có nghĩa là cả hai đều trỏ đến cùng một đối tượng trong bộ nhớ.
+- dvd.setTitle(title); thay đổi tiêu đề của đối tượng, nên jungleDVD trong main() cũng bị thay đổi.
+- dvd = new DigitalVideoDisc(oldTitle); tạo một đối tượng mới, nhưng chỉ ảnh hưởng đến dvd trong changeTitle(), không thay đổi jungleDVD trong main().
+-> jungleDVD trong main() vẫn tham chiếu đến đối tượng gốc, nhưng tiêu đề đã bị thay đổi
