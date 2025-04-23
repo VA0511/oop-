@@ -1,0 +1,15 @@
+1. What class should implement the Comparable interface?
+The Media class should implement the Comparable<Media> interface. Since Media is the superclass of all media types (such as Book, DigitalVideoDisc, and CompactDisc), defining the natural ordering logic here allows all media types to be sorted consistently based on shared attributes like title and cost.
+
+2. How should you implement the compareTo() method to reflect the ordering that we want?
+- The compareTo() method should first compare media items by their title in alphabetical order. If two items have the same title, it should then compare them by their cost, displaying items with higher cost first. The logic in the compareTo() method might look like this:
+  + If the titles are different, compare them using String.compareTo().
+  + If the titles are the same, compare the costs using Float.compare() in descending order.
+
+3. Can we have two ordering rules (by title then cost and by cost then title) if we use this Comparable interface approach?
+No, using the Comparable interface only allows one natural ordering through the compareTo() method. To implement multiple sorting strategies (e.g., by title then cost, and by cost then title), you need to use additional Comparator classes, which provide external custom sorting logic without altering the natural order.
+
+4. Suppose DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+You have two main options:
+- Option 1: Create a separate Comparator specifically for DigitalVideoDisc that implements the required ordering logic (title → descending length → cost). Use this comparator when sorting DVDs.
+- Option 2: Override the compareTo() method in the DigitalVideoDisc class. You can check if the object being compared is a DigitalVideoDisc, and apply the custom comparison logic only in that case. For other types, you can delegate to the Media class’s compareTo() method. This allows DVDs to have a unique ordering rule while maintaining a general rule for all media.
