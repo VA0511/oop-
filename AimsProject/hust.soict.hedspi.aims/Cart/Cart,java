@@ -1,0 +1,169 @@
+package hust.soict.hedspi.aims.media;
+
+import java.util.Comparator;
+
+public abstract class Media {
+    private int id;
+    private String title;
+    private String category;
+    private float cost;
+
+    public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
+    public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
+
+    public Media() {}
+
+    public Media(int id, String title, String category, float cost) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
+    }
+
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public String getCategory() { return category; }
+    public float getCost() { return cost; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Media)) return false;
+        Media media = (Media) o;
+        return title != null && title.equals(media.getTitle());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s - %.2f$", title, category, cost);
+    }
+}
+
+package hust.soict.hedspi.aims.media;
+
+import java.util.ArrayList;
+
+public class Book extends Media {
+    private ArrayList<String> authors = new ArrayList<>();
+
+    public Book(int id, String title, String category, float cost) {
+        super(id, title, category, cost);
+    }
+
+    public void addAuthor(String authorName) {
+        if (!authors.contains(authorName)) {
+            authors.add(authorName);
+        }
+    }
+
+    public void removeAuthor(String authorName) {
+        authors.remove(authorName);
+    }
+
+    @Override
+    public String toString() {
+        return "Book: " + super.toString();
+    }
+}
+
+package hust.soict.hedspi.aims.media;
+
+public class MediaComparatorByTitleCost implements Comparator<Media> {
+    public int compare(Media m1, Media m2) {
+        int result = m1.getTitle().compareTo(m2.getTitle());
+        if (result == 0) {
+            return Float.compare(m2.getCost(), m1.getCost());
+        }
+        return result;
+    }
+}
+
+package hust.soict.hedspi.aims.media;
+
+public class MediaComparatorByCostTitle implements Comparator<Media> {
+    public int compare(Media m1, Media m2) {
+        int result = Float.compare(m2.getCost(), m1.getCost());
+        if (result == 0) {
+            return m1.getTitle().compareTo(m2.getTitle());
+        }
+        return result;
+    }
+}
+
+package hust.soict.hedspi.aims.cart;
+
+import hust.soict.hedsp.aims.media.Media;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Cart {
+    private ArrayList<Media> itemsOrdered = new ArrayList<>();
+
+    public void addMedia(Media media) {
+        if (!itemsOrdered.contains(media)) {
+            itemsOrdered.add(media);
+            System.out.println("Added: " + media.getTitle());
+        } else {
+            System.out.println("This media is already in the cart.");
+        }
+    }
+
+    public void removeMedia(Media media) {
+        if (itemsOrdered.contains(media)) {
+            itemsOrdered.remove(media);
+            System.out.println("Removed: " + media.getTitle());
+        } else {
+            System.out.println("Media not found in the cart.");
+        }
+    }
+
+    public float totalCost() {
+        float total = 0;
+        for (Media media : itemsOrdered) {
+            total += media.getCost();
+        }
+        return total;
+    }
+
+    public void printCart() {
+        System.out.println("***********************CART***********************");
+        System.out.println("Ordered Items:");
+        int index = 1;
+        for (Media media : itemsOrdered) {
+            System.out.println(index + ". " + media.toString());
+            index++;
+        }
+        System.out.println("Total cost: " + totalCost() + "$");
+        System.out.println("***************************************************");
+    }
+
+    public void sortByTitleCost() {
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+    }
+
+    public void sortByCostTitle() {
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+    }
+
+    public Media searchById(int id) {
+        for (Media media : itemsOrdered) {
+            if (media.getId() == id) return media;
+        }
+        return null;
+    }
+
+    public ArrayList<Media> searchByTitle(String title) {
+        ArrayList<Media> result = new ArrayList<>();
+        for (Media media : itemsOrdered) {
+            if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                result.add(media);
+            }
+        }
+        return result;
+    }
+
+    public void clear() {
+        itemsOrdered.clear();
+        System.out.println("The cart is now empty.");
+    }
+} 

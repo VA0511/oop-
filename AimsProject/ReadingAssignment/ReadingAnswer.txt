@@ -1,0 +1,9 @@
+- What are the advantages of Polymorphism?
+Polymorphism allows one interface to represent multiple forms, promoting flexibility and reusability. It simplifies code maintenance, enables method overriding and overloading, and supports dynamic method dispatch for runtime behavior.
+
+- How is Inheritance useful to achieve Polymorphism in Java?
+Inheritance enables polymorphism by allowing a subclass to inherit methods from a superclass. Through method overriding, a subclass can provide its own implementation of a method, and a superclass reference can call the subclass's method at runtime (dynamic polymorphism).
+
+- What are the differences between Polymorphism and Inheritance in Java?
++ Polymorphism: Focuses on allowing objects to take multiple forms (e.g., method overriding, overloading). It’s a behavior that enables flexibility in method calls.  
++ Inheritance: A mechanism where a class inherits properties and methods from another class. It’s a structural relationship that supports polymorphism but is primarily about code reuse and hierarchy.
