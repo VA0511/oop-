@@ -1,10 +1,10 @@
-package hust.soict.dsai.aims.screen.customer.controller;
+package hust.soict.hedspi.aims.screen.customer.controller;
 
-import hust.soict.dsai.aims.cart.Cart;
-import hust.soict.dsai.aims.exception.FullCartException;
-import hust.soict.dsai.aims.exception.PlayerException;
-import hust.soict.dsai.aims.media.Media;
-import hust.soict.dsai.aims.media.Playable;
+import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.exception.FullCartException;
+import hust.soict.hedspi.aims.exception.PlayerException;
+import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Playable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
